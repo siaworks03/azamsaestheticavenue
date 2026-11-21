@@ -1,0 +1,437 @@
+/* ==========================================================
+   Azam's Aesthetic Avenue
+   Plain CSS. Black marble + champagne gold. Mobile first.
+   ========================================================== */
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Tokens ---------- */
+:root {
+  --ink: #060504;
+  --panel: rgba(20, 17, 12, 0.8);
+  --gold: #d4af5a;
+  --gold-light: #f3e2a9;
+  --gold-deep: #9a742a;
+  --line: rgba(212, 175, 90, 0.32);
+  --line-strong: rgba(212, 175, 90, 0.75);
+  --text: #f6f0e1;
+  --muted: rgba(246, 240, 225, 0.6);
+  --font-display: "Cinzel", Georgia, serif;
+  --font-sans: "Jost", "Helvetica Neue", Arial, sans-serif;
+  --gold-grad: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 52%, var(--gold-deep) 100%);
+}
+
+html {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  background: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: var(--gold);
+  color: #000;
+}
+
+/* ---------- Marble backdrop ---------- */
+.veins {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(212, 175, 90, 0.18), transparent 70%),
+    radial-gradient(ellipse 70% 35% at 50% 100%, rgba(212, 175, 90, 0.1), transparent 70%),
+    url("../assets/veins.svg") center / cover no-repeat;
+}
+
+/* ---------- Layout (page scrolls naturally on phones) ---------- */
+.page {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  margin: auto;            /* centers on tall screens, scrolls on short ones */
+  padding: 2.25rem 1.1rem 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: 1.75rem;
+  background: linear-gradient(180deg, rgba(20, 17, 12, 0.7), rgba(6, 5, 4, 0.85));
+  box-shadow: 0 30px 80px -30px #000, inset 0 0 0 6px rgba(6, 5, 4, 0.6), inset 0 0 0 7px rgba(212, 175, 90, 0.12);
+  animation: rise 0.8s ease both;
+}
+
+/* gold corner ornaments */
+.corner {
+  position: absolute;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 0 solid var(--gold);
+  pointer-events: none;
+}
+.corner.tl { top: 0.7rem; left: 0.7rem; border-top-width: 2px; border-left-width: 2px; border-top-left-radius: 0.9rem; }
+.corner.tr { top: 0.7rem; right: 0.7rem; border-top-width: 2px; border-right-width: 2px; border-top-right-radius: 0.9rem; }
+.corner.bl { bottom: 0.7rem; left: 0.7rem; border-bottom-width: 2px; border-left-width: 2px; border-bottom-left-radius: 0.9rem; }
+.corner.br { bottom: 0.7rem; right: 0.7rem; border-bottom-width: 2px; border-right-width: 2px; border-bottom-right-radius: 0.9rem; }
+
+/* ---------- Brand ---------- */
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.brand-logo {
+  width: clamp(7.5rem, 36vw, 9.5rem);
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 28px rgba(212, 175, 90, 0.22));
+}
+.brand-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  margin-top: 0.6rem;
+  line-height: 0;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85));
+}
+/* "Azam's" is deliberately smaller than "Aesthetic Avenue" */
+.name-top {
+  width: clamp(5.5rem, 28vw, 7.5rem);
+}
+.name-main {
+  width: clamp(14rem, 72vw, 19rem);
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.85rem, 3.9vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+.category span {
+  padding-left: 0.3em; /* balances trailing letter-spacing */
+  white-space: nowrap;
+}
+.category::before,
+.category::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong));
+}
+.category::after {
+  background: linear-gradient(270deg, transparent, var(--line-strong));
+}
+
+/* ---------- Connect heading ---------- */
+.connect {
+  margin-top: 1.75rem;
+}
+.connect-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 9vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--gold);
+}
+.connect-title small {
+  margin-top: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.7em;
+  padding-left: 0.7em;
+  -webkit-text-fill-color: var(--muted);
+  color: var(--muted);
+}
+
+/* ---------- Links: one under the other ---------- */
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.link {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 4.5rem;
+  padding: 0.75rem 0.8rem 0.75rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  background: var(--panel);
+  box-shadow: 0 12px 26px -16px #000;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  animation: rise 0.7s ease both;
+}
+.link:nth-child(1) { animation-delay: 0.15s; }
+.link:nth-child(2) { animation-delay: 0.22s; }
+.link:nth-child(3) { animation-delay: 0.29s; }
+.link:nth-child(4) { animation-delay: 0.36s; }
+.link:nth-child(5) { animation-delay: 0.43s; }
+
+/* gold accent bar on the left edge */
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--gold-grad);
+  opacity: 0.85;
+}
+
+/* gold sheen that slides across on hover */
+.link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(243, 226, 169, 0.12) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+
+.link:active {
+  transform: scale(0.985);
+}
+.link:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .link:hover {
+    transform: translateY(-2px);
+    border-color: var(--line-strong);
+    box-shadow: 0 16px 30px -16px rgba(212, 175, 90, 0.4);
+  }
+  .link:hover::before {
+    transform: translateX(120%);
+  }
+  .link:hover .link-arrow {
+    transform: translate(2px, -2px);
+  }
+}
+
+.link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 50%;
+  background: rgba(212, 175, 90, 0.08);
+  border: 1px solid rgba(212, 175, 90, 0.3);
+}
+.link-icon svg {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.link-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.link-label {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  color: var(--text);
+}
+.link-sub {
+  margin-top: 0.1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.link-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--gold);
+  transition: transform 0.2s ease;
+}
+.link-arrow svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+/* last button (phone) is the gold call-to-action */
+.link-call {
+  border-color: transparent;
+  background: var(--gold-grad);
+  box-shadow: 0 14px 30px -14px rgba(212, 175, 90, 0.6);
+}
+.link-call::after {
+  display: none;
+}
+.link-call .link-icon {
+  background: rgba(6, 5, 4, 0.88);
+  border-color: transparent;
+  color: var(--gold-light);
+}
+.link-call .link-label {
+  color: #14100a;
+}
+.link-call .link-sub {
+  color: rgba(20, 16, 10, 0.75);
+  font-weight: 500;
+}
+.link-call .link-arrow {
+  background: rgba(6, 5, 4, 0.88);
+  border-color: transparent;
+  color: var(--gold-light);
+}
+
+/* ---------- Footer ---------- */
+.foot {
+  margin-top: 1.75rem;
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(246, 240, 225, 0.4);
+}
+.foot-line {
+  display: block;
+  width: 5rem;
+  height: 1px;
+  margin: 0 auto 0.9rem;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ---------- Toast (shown for links not added yet) ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 10;
+  transform: translate(-50%, 1rem);
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(10, 8, 5, 0.96);
+  color: var(--gold-light);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- Image fallback ---------- */
+.img-fallback {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  line-height: 1.2;
+}
+.brand-logo.img-fallback { font-size: 3.5rem; }
+.name-top.img-fallback { font-size: 1.1rem; color: var(--text); }
+.name-main.img-fallback { font-size: 1.7rem; color: var(--text); }
+
+/* ---------- Motion ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Small phones ---------- */
+@media (max-width: 360px) {
+  .page { padding: 0.6rem; }
+  .frame { padding: 2rem 0.8rem 1.5rem; }
+  .link { gap: 0.7rem; }
+  .link-label { font-size: 0.95rem; }
+  .category { letter-spacing: 0.2em; }
+}
+
+/* ---------- Tablet / desktop ---------- */
+@media (min-width: 640px) {
+  .page { padding: 2rem 1rem; }
+  .frame { max-width: 30rem; padding: 2.75rem 1.75rem 2rem; }
+  .link { min-height: 4.75rem; }
+}
